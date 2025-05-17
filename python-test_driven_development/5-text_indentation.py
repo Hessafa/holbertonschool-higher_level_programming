@@ -1,25 +1,22 @@
 #!/usr/bin/python3
 """Module that defines a function to indent text properly."""
 
-
 def text_indentation(text):
-    """Prints text with two newlines after each '.', '?' or ':'.
+    """Function that prints a text with two new lines after each of these characters: `.`, `?`, and `:`.
 
     Args:
-        text (str): The input string to format.
+    text (str): The text to be printed.
 
     Raises:
-        TypeError: If text is not a string.
+    TypeError: If the input is not a string.
     """
     if not isinstance(text, str):
         raise TypeError("text must be a string")
 
-    buffer = ""
-    for char in text:
-        buffer += char
-        if char in ".?:":  # Add newline after these characters
-            print(buffer.strip())
-            print()
-            buffer = ""
-    if buffer.strip():  # Print any remaining text
-        print(buffer.strip())
+    i = 0
+    while i < len(text):
+        print(text[i], end="")  # Print the current character without a newline
+        if text[i] in ['.', '?', ':']:  # Check if it's one of the characters that needs to be followed by newlines
+            print("\n")  # Print a new line
+        i += 1
+
