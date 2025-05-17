@@ -1,23 +1,25 @@
-#!/usr/bin/python3
-"""This module provides a function to add two integers or floats."""
-
-
-def add_integer(a, b=98):
-    """Adds two integers or floats and returns the integer sum.
-
-    Args:
-        a: The first number (int or float).
-        b: The second number (int or float, default 98).
-
-    Returns:
-        The sum of a and b as an integer.
-
-    Raises:
-        TypeError: If a or b are not integers or floats.
-    """
-    if not isinstance(a, (int, float)):
-        raise TypeError("a must be an integer")
-    if not isinstance(b, (int, float)):
-        raise TypeError("b must be an integer")
-
-    return int(a) + int(b)
+>>> __import__('0-add_integer').add_integer(1, 2)
+3
+>>> __import__('0-add_integer').add_integer(100, -2)
+98
+>>> __import__('0-add_integer').add_integer(2)
+100
+>>> __import__('0-add_integer').add_integer(100.3, -2)
+98
+>>> __import__('0-add_integer').add_integer(1.5, 2.7)
+3
+>>> __import__('0-add_integer').add_integer("Hello", 2)
+Traceback (most recent call last):
+TypeError: a must be an integer
+>>> __import__('0-add_integer').add_integer(2, "World")
+Traceback (most recent call last):
+TypeError: b must be an integer
+>>> __import__('0-add_integer').add_integer(None)
+Traceback (most recent call last):
+TypeError: a must be an integer
+>>> __import__('0-add_integer').add_integer(1e400, 1)
+Traceback (most recent call last):
+OverflowError: cannot convert float infinity to integer
+>>> __import__('0-add_integer').add_integer(float('nan'), 1)
+Traceback (most recent call last):
+ValueError: cannot convert float NaN to integer
