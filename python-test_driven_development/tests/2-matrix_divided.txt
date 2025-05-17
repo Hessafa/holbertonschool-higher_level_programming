@@ -1,27 +1,27 @@
->>> from 2-matrix_divided import 2-matrix_divided
->>> 2-matrix_divided([[3, 9], [12, 15]], 3)
+>>> from 2-matrix_divided import matrix_divided
+>>> matrix_divided([[3, 9], [12, 15]], 3)
 3
->>> 2-matrix_divided([[3, "9"], [15, 3]], 3)
+>>> matrix_divided([[3, "9"], [15, 3]], 3)
 Traceback (most recent call last):
     ...
 TypeError: matrix must be a matrix (array of arrays of integers/floats)
->>> 2-matrix_divided([[3, 9], [12, 15]], 0)
+>>> matrix_divided([[3, 9], [12, 15]], 0)
 Traceback (most recent call last):
     ...
 ZeroDivisionError: division by zero
->>> 2-matrix_divided([[3, 9], [12]], 3)
+>>> matrix_divided([[3, 9], [12]], 3)
 Traceback (most recent call last):
     ...
 TypeError: matrix must have each row with the same size
->>> 2-matrix_divided([[3, 9], [12, "15"]], 3)
+>>> matrix_divided([[3, 9], [12, "15"]], 3)
 Traceback (most recent call last):
     ...
 TypeError: matrix must be a matrix (array of arrays of integers/floats)
->>> 2-matrix_divided([[3, 9], [12, 15]], "2")
+>>> matrix_divided([[3, 9], [12, 15]], "2")
 Traceback (most recent call last):
     ...
 TypeError: div must be a number
->>> 2-matrix_divided([[3, 9], [12, 15]])
+>>> matrix_divided([[3, 9], [12, 15]])
 Traceback (most recent call last):
     ...
 TypeError: missing div argument
