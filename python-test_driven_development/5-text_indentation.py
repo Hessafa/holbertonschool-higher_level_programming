@@ -2,20 +2,21 @@
 """
 Module for text_indentation function.
 """
-
 def text_indentation(text):
-    """Prints text with 2 new lines after '.', '?', or ':' characters."""
+    """Function that prints a text with two new lines after each of these characters: `.`, `?`, and `:`.
+
+    Args:
+    text (str): The text to be printed.
+
+    Raises:
+    TypeError: If the input is not a string.
+    """
     if not isinstance(text, str):
         raise TypeError("text must be a string")
 
-    chars = [".", "?", ":"]
-    new_text = ""
-    for char in text:
-        new_text += char
-        if char in chars:
-            new_text += "\n\n"
-
-    lines = [line.strip() for line in new_text.split("\n")]
-    for line in lines:
-        if line:
-            print(line)
+    i = 0
+    while i < len(text):
+        print(text[i], end="")  # Print the current character without a newline
+        if text[i] in ['.', '?', ':']:  # Check if it's one of the characters that needs to be followed by newlines
+            print("\n")  # Print a new line
+        i += 1
