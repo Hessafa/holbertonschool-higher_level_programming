@@ -1,18 +1,38 @@
->>> from 5-text_indentation import text_indentation
->>> text_indentation("This is a test. Do you understand? Yes!")
-This is a test.
-
-Do you understand?
-
-Yes!
->>> text_indentation("Hello. How are you doing? I hope you're fine:")
+>>> text_indentation = __import__('5-text_indentation').text_indentation
+>>> text_indentation("Hello. How are you? Good: I hope")
 Hello.
 
-How are you doing?
+How are you?
 
-I hope you're fine:
->>> text_indentation("Hello world! What’s your name?")
-Hello world!
-What’s your name?
->>> text_indentation("A sentence with no punctuation marks")
-A sentence with no punctuation marks
+Good:
+
+I hope
+>>> text_indentation("")
+(no output)
+>>> text_indentation("Hello.   How are you?")
+Hello.
+
+How are you?
+>>> text_indentation("This is a test. With colon: and question? End")
+This is a test.
+
+With colon:
+
+and question?
+
+End
+>>> text_indentation("No delimiters here")
+No delimiters here
+>>> text_indentation("...")
+.
+
+
+.
+
+.
+>>> text_indentation("   ")
+(no output)
+>>> text_indentation(123)
+Traceback (most recent call last):
+...
+TypeError: text must be a string
