@@ -1,6 +1,5 @@
 >>>print_square= __import__('4-print_square').print_square
->>> from print_square import print_square
->>> print_square(4)
+
 ####
 ####
 ####
