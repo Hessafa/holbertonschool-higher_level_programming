@@ -1,11 +1,16 @@
 #!/usr/bin/python3
+"""
+Module containing class Shape and subclasses Circle and Rectangle.
+"""
+
 from abc import ABC, abstractmethod
-import math
+from math import pi
 
 
 class Shape(ABC):
-    """abstract class for shapes"""
-
+    """
+    A class to define a shape.
+    """
     @abstractmethod
     def area(self):
         pass
@@ -13,63 +18,39 @@ class Shape(ABC):
     @abstractmethod
     def perimeter(self):
         pass
+
 
 class Circle(Shape):
-    """circle"""
-
+    """
+    A class to define a circle.
+    """
     def __init__(self, radius):
-        """
-
-        Args:
-          radius: radius
-        """
-        self.radius = radius
+        self.__radius = abs(radius)
 
     def area(self):
-        """
-
-        Return: area
-        """
-        return math.pi * self.radius ** 2
+        return pi * self.__radius * self.__radius
 
     def perimeter(self):
-        """
+        return 2 * pi * self.__radius
 
-        Return: perimeter
-        """
-        return 2 * math.pi * self.radius
 
 class Rectangle(Shape):
-    """rectangle"""
-
+    """
+    A class to define a rectangle.
+    """
     def __init__(self, width, height):
-        """
-
-        Args:
-           width: width
-           height: height
-        """
-        self.width = width
-        self.height = height
+        self.__width = width
+        self.__height = height
 
     def area(self):
-        """
-
-        Return: area
-        """
-        return self.width * self.height
+        return self.__width * self.__height
 
     def perimeter(self):
-        """
+        return 2 * self.__width + 2 * self.__height
 
-        Return: perimeter
-        """
-        return 2 * (self.width + self.height)
 
-def shape_info(shape):
-    """information about shape
-    Args:
-      shape: shape object
-    """
-    print("Area: {}".format(shape.area()))
-    print("Perimeter: {}".format(shape.perimeter()))
+def shape_info(obj):
+    area = obj.area()
+    perimeter = obj.perimeter()
+    print("Area: {}".format(area))
+    print("Perimeter: {}".format(perimeter))
