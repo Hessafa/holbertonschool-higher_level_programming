@@ -92,17 +92,4 @@ Add .roar() to make it unique
 | `habitat()`            | Demonstrates method override in multiple inheritance                |
 | `.mro()`               | Shows the method resolution order for a class                       |
 
----
-
-##  How to Run
-
-Each task has a main script:
-
-```bash
-python3 main_00.py   # Task 0: Animal
-python3 main_01.py   # Task 1: Shape & Duck Typing
-python3 main_02.py   # Task 2: VerboseList
-python3 main_03.py   # Task 3: CountedIterator
-python3 main_04.py   # Task 4: FlyingFish
-python3 main_05.py   # Task 5: Dragon with Mixins
 
