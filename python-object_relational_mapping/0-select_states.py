@@ -1,40 +1,37 @@
 #!/usr/bin/python3
 """
-This module use mysqldb to connect with database
+Liste tous les états de la base de donnés hbtn_0e_0_usa
 """
-import MySQLdb as ms
+
+import MySQLdb
 import sys
 
+if __name__ == "__main__":
+    # Récupérer les arguments
+    username = sys.argv[1]
+    password = sys.argv[2]
+    database = sys.argv[3]
 
-def main():
+    # Se connecter à la base de données MySQL
+    dataB = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=username,
+        passwd=password,
+        db=database
+    )
 
-    if len(sys.argv) != 4:
-        print("Incorrecte call to scripts")
-        return 1
+    # Crée un curseur pour exécuter des commandes SQL
+    cursor = dataB.cursor()
 
-    try:
-        db = ms.connect(
-            host="localhost",
-            port=3306,
-            user=sys.argv[1],
-            password=sys.argv[2],
-            database=sys.argv[3]
-        )
-    except ms.MySQLError as e:
-        print("connection failed: {}".format(e))
-        return 1
+    # Exécuter la requête SQL pour récupérer tous les états triés par ID
+    cursor.execute("SELECT * FROM states ORDER BY id ASC")
 
-    cur = db.cursor()
-    cur.execute("SELECT * FROM states ORDER BY states.id ASC")
+    # Récupérer tous les résultats de la requête
+    states = cursor.fetchall()
 
-    rows = cur.fetchall()
+    for state in states:
+        print(state)
 
-    for row in rows:
-        print(row)
-
-    cur.close()
-    db.close()
-
-
-if __name__ == '__main__':
-    main()
+    cursor.close()
+    dataB.close()
