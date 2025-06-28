@@ -1,17 +1,16 @@
 #!/usr/bin/python3
 """
-Script that lists all states from the database hbtn_0e_0_usa
-using MySQLdb (MySQL Python connector)
+Script to list all states from the database hbtn_0e_0_usa.
+Usage: ./0-select_states.py <username> <password> <database>
 """
-
 import MySQLdb
 import sys
 
 if __name__ == "__main__":
-    username = sys.argv[1]
-    password = sys.argv[2]
-    db_name = sys.argv[3]
+    # Get MySQL credentials from command-line arguments
+    username, password, db_name = sys.argv[1], sys.argv[2], sys.argv[3]
 
+    # Connect to the MySQL database
     db = MySQLdb.connect(
         host="localhost",
         port=3306,
@@ -20,14 +19,19 @@ if __name__ == "__main__":
         db=db_name
     )
 
-    cur = db.cursor()
+    # Create a cursor object
+    cursor = db.cursor()
 
-    cur.execute("SELECT * FROM states ORDER BY id ASC")
+    # Execute SQL query to select all states ordered by id
+    cursor.execute("SELECT * FROM states ORDER BY id ASC")
 
-    rows = cur.fetchall()
+    # Fetch all rows from the query
+    rows = cursor.fetchall()
 
+    # Print each row
     for row in rows:
         print(row)
 
-    cur.close()
+    # Close the cursor and the connection
+    cursor.close()
     db.close()
