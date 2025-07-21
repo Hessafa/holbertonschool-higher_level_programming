@@ -1,7 +1,9 @@
+
 from task_00_intro import generate_invitations
 
-with open("template.txt", "r") as file:
+with open('template.txt', 'r') as file:
     template_content = file.read()
+
 
 attendees = [
     {"name": "Alice", "event_title": "Python Conference", "event_date": "2023-07-15", "event_location": "New York"},
