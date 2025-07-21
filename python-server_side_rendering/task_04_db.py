@@ -5,59 +5,67 @@ import sqlite3
 
 app = Flask(__name__)
 
-def read_json_data():
-    with open('products.json', 'r') as file:
-        return json.load(file)
+def get_data_from_json():
+    with open('products.json') as f:
+        return json.load(f)
 
-def read_csv_data():
-    with open('products.csv', newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        return [dict(row) for row in reader]
+def get_data_from_csv():
+    with open('products.csv') as f:
+        reader = csv.DictReader(f)
+        return list(reader)
 
-def read_sql_data():
-    conn = sqlite3.connect('products.db')
-    conn.row_factory = sqlite3.Row  # enable dict-like access
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Products")
-    rows = cursor.fetchall()
-    conn.close()
-    return [dict(row) for row in rows]
+def get_data_from_sql():
+    try:
+        conn = sqlite3.connect('products.db')
+        cursor = conn.cursor()
+        cursor.execute('SELECT id, name, category, price FROM Products')
+        rows = cursor.fetchall()
+        conn.close()
+        return [
+            {
+                'id': row[0],
+                'name': row[1],
+                'category': row[2],
+                'price': row[3]
+            } for row in rows
+        ]
+    except sqlite3.Error as e:
+        print(f"Database error: {e}")
+        return None
 
 @app.route('/products')
-def products():
+def index():
     source = request.args.get('source')
-    id_filter = request.args.get('id')
+    product_id = request.args.get('id')
     products = []
     error = None
 
     if source == 'json':
-        try:
-            products = read_json_data()
-        except Exception as e:
-            error = f"Error reading JSON: {str(e)}"
-
+        products = get_data_from_json()
     elif source == 'csv':
-        try:
-            products = read_csv_data()
-        except Exception as e:
-            error = f"Error reading CSV: {str(e)}"
-
+        products = get_data_from_csv()
     elif source == 'sql':
-        try:
-            products = read_sql_data()
-        except Exception as e:
-            error = f"Error reading SQLite DB: {str(e)}"
-
+        products = get_data_from_sql()
+        if products is None:
+            error = 'Database error'
     else:
-        error = "Wrong source"
+        error = 'Wrong source'
 
-    if id_filter and not error:
-        products = [p for p in products if str(p.get("id")) == id_filter]
-        if not products:
-            error = "Product not found"
+    # Filter by product_id if provided and no previous error
+    if error is None and product_id:
+        try:
+            product_id = int(product_id)
+            filtered = [p for p in products if int(p['id']) == product_id]
+            if filtered:
+                products = filtered
+            else:
+                products = []
+                error = 'Product not found'
+        except ValueError:
+            products = []
+            error = 'Invalid ID format'
 
     return render_template('product_display.html', products=products, error=error)
 
-
-if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+if __name__ == '__main__':
+    app.run(debug=True)
